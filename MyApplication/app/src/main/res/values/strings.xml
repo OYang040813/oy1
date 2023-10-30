@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="TopName">花难鲤攻教务处 花难鲤攻教务处 花难鲤攻教务处 花难鲤攻教务处 花难鲤攻教务处 花难鲤攻教务处 </string>
+    <string name="sth_to_scut">scut   aminoac   scut   aminoac   scut   aminoac   scut   aminoac   scut   aminoac   scut   aminoac   scut   aminoac   </string>
+    <string name="Button_name1">点击立刻切换你的守护神</string>
+    <string name="editext1">请输入用户名</string>
+    <string name="editext2">请输入验证密码</string>
+    <string name="bnt_enter">登陆</string>
+    <string name="notification">通知，启动！</string>
+    <string name="main_title">华南职业技术学院</string>
+    <string name="dialog_wornning">花难鲤攻教务处提醒您，安分守己，请重新输入</string>
+</resources>
