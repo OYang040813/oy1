@@ -50,7 +50,8 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
 
-
+    //添加recyclerview 依赖包
+    implementation("androidx.recyclerview:recyclerview:1.1.0")
 
     //Dagger - Hilt
     //implementation("com.google.dagger:hilt-android:2.40.5")

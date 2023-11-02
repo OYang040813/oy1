@@ -27,6 +27,7 @@
             />
 
         <ImageView
+            android:id="@+id/iv_top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/happyface"
@@ -51,7 +52,7 @@
         android:shadowColor="#ff0000ff"
         android:shadowDx="10"
         android:shadowDy="10"
-        android:shadowRadius="3.0"
+        android:shadowRadius="3.1"
 
         android:singleLine="true"
         android:text="@string/TopName"

@@ -1,52 +1,67 @@
 package com.goudong.myapp;
 
 import android.content.Context;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class MyAdapter extends BaseAdapter {
+public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     private List<Bean> data;
     private Context context;
 
-    public MyAdapter(List<Bean> data,Context context){
-        this.data=data;
-        this.context=context;
+    public MyAdapter(List<Bean> data, Context context) {
+        this.data = data;
+        this.context = context;
+    }
+
+    @NonNull
+    @Override
+    public MyAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = View.inflate(context,R.layout.recyclerview_item,null);
+        return new MyViewHolder(view);
     }
 
     @Override
-    public int getCount() {
-        return data.size();
+    public void onBindViewHolder(@NonNull MyAdapter.MyViewHolder holder, int position) {
+        holder.tv.setText(data.get(position).getName());
     }
 
     @Override
-    public Object getItem(int i) {
-        return null;
+    public int getItemCount() {
+        return data == null ? 0 : data.size();
     }
 
-    @Override
-    public long getItemId(int i) {
-        return i;
-    }
-    
-    @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        if (view==null){
-            view = LayoutInflater.from(context).inflate(R.layout.listviewdata_item,
-                    viewGroup,false);
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        private TextView tv;
+        public MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+            tv = itemView.findViewById(R.id.tv);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(monItemClickListener != null){
+                        monItemClickListener.OnRecyclerItemClick(getAdapterPosition());
+                    }
+                }
+            });
+
         }
+    }
 
-        TextView textview = view.findViewById(R.id.lv);
-        textview.setText(data.get(i).getName());
+    private OnRecyclerItemClickListener monItemClickListener;
 
-        Log.e("ouyang","getView:"+i);
+    public void setRecyclerItemClickListener(OnRecyclerItemClickListener listener){
+        monItemClickListener = listener;
+    }
 
-        return view;
+    public  interface OnRecyclerItemClickListener{
+        void OnRecyclerItemClick(int position);
     }
 }

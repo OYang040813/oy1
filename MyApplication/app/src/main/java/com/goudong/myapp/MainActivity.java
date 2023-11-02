@@ -2,20 +2,30 @@ package com.goudong.myapp;
 
 import android.app.AlertDialog;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
 
 import com.goudong.myapp.databinding.ActivityMainBinding;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -32,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText ed1;
     private EditText ed2;
     private ProgressBar pb;
-    //private List<Bean> data = new ArrayList<>();
+    private List<Bean> data = new ArrayList<>();
 
 
 
@@ -45,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-
 /*
         ///////////////////////载入初始数据给Bean那边，用于ListView
         for(int i=0;i<100;i++){
@@ -53,15 +62,24 @@ public class MainActivity extends AppCompatActivity {
             bean.setName("ouyang"+i);
             data.add(bean);
         }
+        RecyclerView recyclerView = findViewById(R.id.rv);
 
-        ListView listview = findViewById(R.id.lv);
-        listview.setAdapter(new MyAdapter(data,this));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
 
+        MyAdapter myAdapter = new MyAdapter(data,this);
+        recyclerView.setAdapter(myAdapter);
 
+        myAdapter.setRecyclerItemClickListener(new MyAdapter.OnRecyclerItemClickListener() {
+            @Override
+            public void OnRecyclerItemClick(int position) {
+                Log.e("ouyang", "OnRecyclerItemClick: "+ position);
+            }
+        });
 
  */
 
-/*
+
 
         ///////////////////////////////////////////////////////////////////////////////////////
         //获取通知管理器的系统级权限!!!
@@ -76,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
 
         //根据权限新建一个通知类的通知对象。[链式结构书写，直接.加函数]
         notification = new NotificationCompat.Builder(this,"OYANG")
+                .setSmallIcon(R.drawable.boerbute)
                 .setPriority(2)
                 .setContentTitle("安全系统警告")
                 .setContentText("请注意，已检测到高危风险程序段。请谨慎选择您的行为")
@@ -83,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         /////////////////////////////////////////////////////////////////////////////////////////
-*/
+
 
 
 
@@ -95,10 +114,20 @@ public class MainActivity extends AppCompatActivity {
         ed1 = findViewById(R.id.ed1);
         ed2 = findViewById(R.id.ed2);
         pb = findViewById(R.id.pb1);
+        ImageView iv_top = findViewById(R.id.iv_top);
 
-        androidx.appcompat.widget.Toolbar tb1 = findViewById(R.id.tb1);
+        Toolbar tb1 = findViewById(R.id.tb1);
         //setSupportActionBar(tb1);
 
+        iv_top.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.e("ouyang", "onClick:rotate");
+                Animation animation = AnimationUtils.loadAnimation(MainActivity.this,
+                        R.anim.rotate);
+                iv_top.startAnimation(animation);
+            }
+        });
 
         //主页面退出按键
         tb1.setNavigationOnClickListener(new View.OnClickListener() {
@@ -154,6 +183,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Log.e("ouyang", "onClick: 通知栏点击了确定");
+                        SendNotification(view);
                     }
                 })
 
@@ -191,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void SendNotification(View view) {
-        //manager_notice.notify(1,notification);
+        manager_notice.notify(1,notification);
     }
 
 
