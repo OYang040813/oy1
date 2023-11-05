@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+
+        android:id="@+id/tb1"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        app:navigationIcon="@drawable/arrow">
+
+
+        <com.goudong.myapp.MyTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_title"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            />
+
+        <ImageView
+            android:id="@+id/iv_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/happyface"
+            android:layout_gravity="right"
+            android:adjustViewBounds="true"
+            />
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+
+    <com.goudong.myapp.MyTextView
+        android:id="@+id/sample_text1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center_horizontal"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:shadowColor="#ff0000ff"
+        android:shadowDx="10"
+        android:shadowDy="10"
+        android:shadowRadius="3.1"
+
+        android:singleLine="true"
+        android:text="@string/TopName"
+        android:textColor="#ffff0000"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <com.goudong.myapp.MyTextView
+        android:id="@+id/sample_text2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#33ff0000"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="top"
+        android:marqueeRepeatLimit="marquee_forever"
+
+        android:shadowColor="#ffffff00"
+        android:shadowDx="8"
+        android:shadowDy="8"
+        android:shadowRadius="3.0"
+
+        android:singleLine="true"
+        android:text="@string/sth_to_scut"
+        android:textColor="#ff000000"
+        android:textSize="50sp"
+        android:textStyle="normal" />
+
+    <Button
+        android:id="@+id/btn_image"
+        android:layout_width="250dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+
+        android:background="@drawable/button"
+        android:gravity="center"
+        android:shadowColor="#ffff00ff"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:shadowRadius="3"
+        android:text="@string/Button_name1"
+
+        android:textColor="#ffffff"
+        android:textStyle="bold"
+
+        />
+
+    <EditText
+        android:id="@+id/ed1"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:background="@color/white"
+        android:drawableStart="@drawable/baseline_person_24"
+        android:drawablePadding="10dp"
+        android:hint="@string/editext1"
+
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:padding="7dp"
+        android:textColorHint="@color/edictextcolor" />
+
+    <EditText
+        android:id="@+id/ed2"
+        android:layout_width="250dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:drawableStart="@drawable/baseline_fingerprint_24"
+        android:drawablePadding="10dp"
+        android:hint="@string/editext2"
+
+        android:inputType="textPassword"
+        android:padding="7dp"
+        android:textColorHint="@color/edictextcolor" />
+
+    <Button
+        android:id="@+id/btn_enter"
+        android:layout_width="77dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="@color/purple_200"
+        android:text="@string/bnt_enter"
+        android:textStyle="bold"
+        />
+
+    <Button
+        android:id="@+id/bnt_alertdielog"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:text="强行登陆"
+        android:textStyle="bold"
+        android:textColor="#ffff0000"
+        android:layout_marginTop="20dp"
+        android:onClick="onClick_dialog"
+        />
+
+
+    <ProgressBar
+        android:id="@+id/pb1"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:max="100"
+        android:indeterminate="true"
+        android:visibility="gone"
+        />
+
+</LinearLayout>

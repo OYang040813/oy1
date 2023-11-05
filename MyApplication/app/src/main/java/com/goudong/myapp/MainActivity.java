@@ -1,5 +1,10 @@
 package com.goudong.myapp;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -42,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText ed1;
     private EditText ed2;
     private ProgressBar pb;
+    private  Button bnt_CenterImage;
     private List<Bean> data = new ArrayList<>();
 
 
@@ -50,11 +56,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        //1、所有控件变量。
 
+        Button button1 = findViewById(R.id.btn_enter);
+        Button button_dielog = findViewById(R.id.bnt_alertdielog);
+        bnt_CenterImage = findViewById(R.id.btn_image);
+        ed1 = findViewById(R.id.ed1);
+        ed2 = findViewById(R.id.ed2);
+        pb = findViewById(R.id.pb1);
+        ImageView iv_top = findViewById(R.id.iv_top);
+        Toolbar tb1 = findViewById(R.id.tb1);
+
+
+        //2、ListView启动所需的数据填充
 /*
         ///////////////////////载入初始数据给Bean那边，用于ListView
         for(int i=0;i<100;i++){
@@ -81,7 +97,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        ///////////////////////////////////////////////////////////////////////////////////////
+        //3、系统级通知栏的发通知权限设置
+
         //获取通知管理器的系统级权限!!!
         manager_notice = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 
@@ -94,31 +111,23 @@ public class MainActivity extends AppCompatActivity {
 
         //根据权限新建一个通知类的通知对象。[链式结构书写，直接.加函数]
         notification = new NotificationCompat.Builder(this,"OYANG")
-                .setSmallIcon(R.drawable.boerbute)
+                .setSmallIcon(R.drawable.baseline_fingerprint_24)
                 .setPriority(2)
                 .setContentTitle("安全系统警告")
                 .setContentText("请注意，已检测到高危风险程序段。请谨慎选择您的行为")
                 .setAutoCancel(true)
                 .build();
 
-        /////////////////////////////////////////////////////////////////////////////////////////
 
 
 
 
-
-        // Example of a call to a native method
-
-        Button button1 = findViewById(R.id.btn_enter);
-        Button button_dielog = findViewById(R.id.bnt_alertdielog);
-        ed1 = findViewById(R.id.ed1);
-        ed2 = findViewById(R.id.ed2);
-        pb = findViewById(R.id.pb1);
-        ImageView iv_top = findViewById(R.id.iv_top);
-
-        Toolbar tb1 = findViewById(R.id.tb1);
+        //4、启动主页面顶部状态栏（之前通过处理已被禁掉）
         //setSupportActionBar(tb1);
 
+
+
+        //5、主页面右上角表情包旋转
         iv_top.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,17 +138,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //主页面退出按键
+        //6、主页面退出按键点击事件
         tb1.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.e("ouyang", "onClick: 主页面退出键被点击");
-                //popupview.isDirty();
             }
         });
 
 
-        //点击事件
+        //7、主页面下方登陆按钮点击事件
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -152,20 +160,66 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //8、ObjectAnimator对象动画处理
+        ObjectAnimator objectAnimator1 = ObjectAnimator.ofFloat(ed1,"alpha",0.5f,1f);
+        ObjectAnimator objectAnimator2 = ObjectAnimator.ofFloat(ed2,"alpha",0.5f,1f);
 
+        objectAnimator1.setDuration(1000);
+        objectAnimator2.setDuration(1000);
 
+        objectAnimator1.setRepeatMode(ValueAnimator.REVERSE);//从尾开始
+        objectAnimator1.setRepeatCount(ValueAnimator.INFINITE);//无限循环
+        objectAnimator2.setRepeatMode(ValueAnimator.REVERSE);//从尾开始
+        objectAnimator2.setRepeatCount(ValueAnimator.INFINITE);//无限循环
+
+        objectAnimator1.start();
+        objectAnimator2.start();
+
+        //9、根据8获得的ObjectAnimator类成员设置监听器。
+        objectAnimator1.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                super.onAnimationCancel(animation);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+                super.onAnimationRepeat(animation);
+            }
+
+            @Override
+            public void onAnimationStart(Animator animation) {
+                super.onAnimationStart(animation);
+            }
+
+            @Override
+            public void onAnimationPause(Animator animation) {
+                super.onAnimationPause(animation);
+            }
+
+            @Override
+            public void onAnimationResume(Animator animation) {
+                super.onAnimationResume(animation);
+            }
+        });
+
+        //10、设置中央窗口浮动
+        floatAnim(bnt_CenterImage,1);
+
+        //11、
 
 
     }
 
 
-
-
-
-
 /////////////////////////////////////外置的解决方法
 
-    //触发对话框
+    //1、主页面最下方“强行登陆”按钮点击事件：触发对话框
     public void onClick_dialog(View view) {
 
         View dialogview = getLayoutInflater().inflate(R.layout.dialog_view, null);
@@ -210,7 +264,7 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
-    //弹窗设置
+    //2、点击”强行登陆“之后再次点击“无视风险”按钮后弹窗设置
     public void popupwindow1(View view){
         View popupview = getLayoutInflater().inflate(R.layout.popupwindow_view, null);
         PopupWindow popupWindow = new PopupWindow(popupview, ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -219,12 +273,48 @@ public class MainActivity extends AppCompatActivity {
         popupWindow.showAsDropDown(view,120,60,30);
     }
 
-
+    //3、点击“强行登陆”之后点击“遥遥领先”发送系统级别通知栏信息
     public void SendNotification(View view) {
         manager_notice.notify(1,notification);
     }
 
+    //4、实现永动浮动动画
+    private void floatAnim(View view,int delay){
+        List animators = new ArrayList<>();
 
+        ObjectAnimator translationXAnim = ObjectAnimator.ofFloat(bnt_CenterImage, "translationX", -12.0f,12.0f,-12.0f);
+
+        translationXAnim.setDuration(1500);
+
+        translationXAnim.setRepeatMode(ValueAnimator.RESTART);
+
+        translationXAnim.setRepeatCount(ValueAnimator.INFINITE);//无限循环
+
+        translationXAnim.start();
+
+        animators.add(translationXAnim);
+
+        ObjectAnimator translationYAnim = ObjectAnimator.ofFloat(bnt_CenterImage, "translationY", -6.0f,6.0f,-6.0f);
+
+        translationYAnim.setDuration(1000);
+
+        translationYAnim.setRepeatCount(ValueAnimator.INFINITE);
+
+        translationYAnim.setRepeatMode(ValueAnimator.RESTART);
+
+        translationYAnim.start();
+
+        animators.add(translationYAnim);
+
+        AnimatorSet btnSexAnimatorSet = new AnimatorSet();
+
+        btnSexAnimatorSet.playTogether(animators);
+
+        btnSexAnimatorSet.setStartDelay(delay);
+
+        btnSexAnimatorSet.start();
+
+    }
 
 
 
