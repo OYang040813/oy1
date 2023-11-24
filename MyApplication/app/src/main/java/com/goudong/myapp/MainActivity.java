@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
         //1、所有控件变量。
 
         Button button1 = findViewById(R.id.btn_enter);
@@ -123,11 +124,12 @@ public class MainActivity extends AppCompatActivity {
 
 
         //4、启动主页面顶部状态栏（之前通过处理已被禁掉）
+
         //setSupportActionBar(tb1);
 
 
-
         //5、主页面右上角表情包旋转
+
         iv_top.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -139,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //6、主页面退出按键点击事件
+
         tb1.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -148,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //7、主页面下方登陆按钮点击事件
+
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -161,6 +165,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //8、ObjectAnimator对象动画处理
+
         ObjectAnimator objectAnimator1 = ObjectAnimator.ofFloat(ed1,"alpha",0.5f,1f);
         ObjectAnimator objectAnimator2 = ObjectAnimator.ofFloat(ed2,"alpha",0.5f,1f);
 
@@ -176,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
         objectAnimator2.start();
 
         //9、根据8获得的ObjectAnimator类成员设置监听器。
+
         objectAnimator1.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationCancel(Animator animation) {
@@ -209,6 +215,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //10、设置中央窗口浮动
+        
         floatAnim(bnt_CenterImage,1);
 
         //11、
